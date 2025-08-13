@@ -1,8 +1,8 @@
-# Task List API
+# Todos API
 
 ## Overview
 
-A simple Flask-based REST API for managing tasks with an interactive web interface for testing. The application provides CRUD operations for tasks with in-memory storage, making it ideal for development and testing purposes. The system includes a clean web UI built with Bootstrap that allows users to create, read, update, and delete tasks while viewing API responses in real-time.
+Una API REST simple desarrollada con Flask para manejar una lista de tareas (todos) con interfaz web interactiva para pruebas. La aplicación proporciona operaciones específicas para todos con almacenamiento en memoria, ideal para desarrollo y pruebas. El sistema incluye una interfaz web limpia construida con Bootstrap que permite crear y eliminar tareas mientras visualiza las respuestas de la API en tiempo real.
 
 ## User Preferences
 
@@ -11,23 +11,23 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### Backend Architecture
-- **Framework**: Flask web framework chosen for its simplicity and lightweight nature
-- **Storage**: In-memory storage using Python classes (TaskManager and Task models)
-- **API Design**: RESTful endpoints following standard HTTP methods (GET, POST, PUT, DELETE)
-- **Request Handling**: JSON-based API with comprehensive validation and error handling
-- **Logging**: Built-in request/response logging for debugging and monitoring
+- **Framework**: Flask web framework para simplicidad y naturaleza liviana
+- **Storage**: Almacenamiento en memoria usando clases Python (TodoManager y Todo models)
+- **API Design**: Endpoints específicos para todos: GET /todos, POST /todos, DELETE /todos/{position}
+- **Request Handling**: API basada en JSON con validación de datos y manejo de errores
+- **Logging**: Sistema integrado de logging para peticiones/respuestas y debugging
 
 ### Frontend Architecture
-- **Technology**: Vanilla JavaScript with Bootstrap 5 for responsive UI
-- **Design Pattern**: Single-page application with dynamic DOM manipulation
-- **Styling**: Bootstrap dark theme for modern appearance
-- **Interactivity**: Real-time API testing interface with response logging
-- **Icons**: Font Awesome integration for enhanced visual elements
+- **Technology**: JavaScript vanilla con Bootstrap 5 para UI responsiva
+- **Design Pattern**: Aplicación de página única con manipulación dinámica del DOM
+- **Styling**: Tema oscuro de Bootstrap para apariencia moderna
+- **Interactivity**: Interfaz de pruebas de API en tiempo real con logging de respuestas
+- **Icons**: Integración de Font Awesome para elementos visuales mejorados
 
 ### Data Model
-- **Task Structure**: Simple task model with id, title, description, completion status, and timestamps
-- **Validation**: Client and server-side validation for data integrity
-- **State Management**: In-memory dictionary storage with auto-incrementing IDs
+- **Todo Structure**: Modelo simple de todo con "label" (string) y "done" (boolean)
+- **Validation**: Validación del lado del cliente y servidor para integridad de datos
+- **State Management**: Almacenamiento en memoria usando lista de Python
 
 ### Security & Configuration
 - **CORS**: Enabled for cross-origin requests during development

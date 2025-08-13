@@ -1,75 +1,40 @@
-from datetime import datetime
-from typing import Dict, List, Optional
+from typing import List, Optional
 
-class Task:
-    """Task model for in-memory storage"""
+class Todo:
+    """Todo model for in-memory storage"""
     
-    def __init__(self, id: int, title: str, description: str = "", completed: bool = False):
-        self.id = id
-        self.title = title
-        self.description = description
-        self.completed = completed
-        self.created_at = datetime.utcnow().isoformat()
-        self.updated_at = datetime.utcnow().isoformat()
+    def __init__(self, label: str, done: bool = False):
+        self.label = label
+        self.done = done
     
-    def to_dict(self) -> Dict:
-        """Convert task to dictionary for JSON serialization"""
+    def to_dict(self) -> dict:
+        """Convert todo to dictionary for JSON serialization"""
         return {
-            'id': self.id,
-            'title': self.title,
-            'description': self.description,
-            'completed': self.completed,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'done': self.done,
+            'label': self.label
         }
-    
-    def update(self, title: Optional[str] = None, description: Optional[str] = None, 
-               completed: Optional[bool] = None):
-        """Update task fields and timestamp"""
-        if title is not None:
-            self.title = title
-        if description is not None:
-            self.description = description
-        if completed is not None:
-            self.completed = completed
-        self.updated_at = datetime.utcnow().isoformat()
 
-class TaskManager:
-    """In-memory task storage and management"""
+class TodoManager:
+    """In-memory todo storage and management"""
     
     def __init__(self):
-        self.tasks: Dict[int, Task] = {}
-        self.next_id = 1
+        self.todos: List[Todo] = []
     
-    def create_task(self, title: str, description: str = "") -> Task:
-        """Create a new task"""
-        task = Task(self.next_id, title, description)
-        self.tasks[self.next_id] = task
-        self.next_id += 1
-        return task
+    def create_todo(self, label: str, done: bool = False) -> List[Todo]:
+        """Create a new todo and return the updated list"""
+        todo = Todo(label, done)
+        self.todos.append(todo)
+        return self.todos
     
-    def get_task(self, task_id: int) -> Optional[Task]:
-        """Get task by ID"""
-        return self.tasks.get(task_id)
+    def get_all_todos(self) -> List[Todo]:
+        """Get all todos"""
+        return self.todos
     
-    def get_all_tasks(self) -> List[Task]:
-        """Get all tasks"""
-        return list(self.tasks.values())
-    
-    def update_task(self, task_id: int, title: Optional[str] = None, 
-                   description: Optional[str] = None, completed: Optional[bool] = None) -> Optional[Task]:
-        """Update task by ID"""
-        task = self.tasks.get(task_id)
-        if task:
-            task.update(title, description, completed)
-        return task
-    
-    def delete_task(self, task_id: int) -> bool:
-        """Delete task by ID"""
-        if task_id in self.tasks:
-            del self.tasks[task_id]
-            return True
-        return False
+    def delete_todo(self, position: int) -> List[Todo]:
+        """Delete todo by position and return the updated list"""
+        if 0 <= position < len(self.todos):
+            del self.todos[position]
+        return self.todos
 
-# Global task manager instance
-task_manager = TaskManager()
+# Global todo manager instance
+todo_manager = TodoManager()
