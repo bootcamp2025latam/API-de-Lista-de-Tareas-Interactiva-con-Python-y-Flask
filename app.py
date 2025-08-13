@@ -17,7 +17,7 @@ CORS(app)
 @app.before_request
 def log_request_info():
     app.logger.debug('Request: %s %s', request.method, request.url)
-    if request.is_json and request.json:
+    if request.method in ['POST', 'PUT', 'PATCH'] and request.is_json and request.json:
         app.logger.debug('Request JSON: %s', request.json)
 
 @app.after_request
